@@ -25,27 +25,3 @@ export function Message(props: any) {
     </div>
   );
 }
-
-// On demand translate >>
-
-// const [translatedMessage, setTranslatedMessage] = useState<
-// string | undefined
-// >();
-
-// const channelStore = useChannelContext();
-// const channel = channelStore.currentGroupChannel;
-
-// useEffect(() => {
-// const onTranslateUserMessage = async () => {
-//   const messageResponse = await channel?.translateUserMessage(message, [
-//     selectedLanguage,
-//   ]);
-
-//   const translations = messageResponse?.translations as {
-//     [key: string]: string;
-//   };
-//   setTranslatedMessage(translations[selectedLanguage]);
-// };
-
-// onTranslateUserMessage();
-// }, [channel, message, selectedLanguage]);
