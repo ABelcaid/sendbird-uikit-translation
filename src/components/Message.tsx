@@ -1,10 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TranslationMenu from "./TranslationMenu";
+import { useChannelContext } from "@sendbird/uikit-react/Channel/context";
 
 export function Message(props: any) {
   const { message } = props;
-  const [selectedLanguage, setSelectedLanguage] = useState("ja");
+
+  const channelStore = useChannelContext();
+  const channel = channelStore.currentGroupChannel;
+
+  const [selectedLanguage, setSelectedLanguage] = useState<
+    string | undefined
+  >();
+
+  const [translatedMessage, setTranslatedMessage] = useState<
+    string | undefined
+  >();
+
+  useEffect(() => {
+    if (selectedLanguage) {
+      const onTranslateUserMessage = async () => {
+        const messageResponse = await channel?.translateUserMessage(message, [
+          selectedLanguage,
+        ]);
+
+        const translations = messageResponse?.translations as {
+          [key: string]: string;
+        };
+        setTranslatedMessage(translations[selectedLanguage]);
+      };
+      onTranslateUserMessage();
+    }
+  }, [channel, message, selectedLanguage]);
 
   const onTranslate = (lang: string) => {
     setSelectedLanguage(lang);
@@ -15,7 +42,7 @@ export function Message(props: any) {
       <TranslationMenu onTranslate={onTranslate} />
 
       <div className="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-3">
-        <p>{message.translations[selectedLanguage] ?? message.message}</p>
+        <p>{translatedMessage ?? message.message}</p>
       </div>
       <img
         src={message.sender.plainProfileUrl}
@@ -25,27 +52,3 @@ export function Message(props: any) {
     </div>
   );
 }
-
-// On demand translate >>
-
-// const [translatedMessage, setTranslatedMessage] = useState<
-// string | undefined
-// >();
-
-// const channelStore = useChannelContext();
-// const channel = channelStore.currentGroupChannel;
-
-// useEffect(() => {
-// const onTranslateUserMessage = async () => {
-//   const messageResponse = await channel?.translateUserMessage(message, [
-//     selectedLanguage,
-//   ]);
-
-//   const translations = messageResponse?.translations as {
-//     [key: string]: string;
-//   };
-//   setTranslatedMessage(translations[selectedLanguage]);
-// };
-
-// onTranslateUserMessage();
-// }, [channel, message, selectedLanguage]);

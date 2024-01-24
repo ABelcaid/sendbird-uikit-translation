@@ -2,7 +2,6 @@ import SbChannel from "@sendbird/uikit-react/Channel";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
 import { useNavigateOnBan } from "../hooks/useNavigateOnBan";
-import { MessageInput } from "../components/MessageInput";
 import { Message } from "../components/Message";
 
 export function Channel() {
@@ -16,7 +15,6 @@ export function Channel() {
   return (
     <div style={{ height: "100vh" }}>
       <SbChannel
-        renderMessageInput={() => <MessageInput />}
         renderMessage={(props) => <Message {...props} />}
         channelUrl={channelUrl as string}
         onBackClick={() => {
