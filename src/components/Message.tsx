@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import TranslationMenu from "./TranslationMenu";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Message(props: any) {
   const { message } = props;
   const [selectedLanguage, setSelectedLanguage] = useState("ja");
