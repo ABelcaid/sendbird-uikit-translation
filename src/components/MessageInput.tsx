@@ -20,7 +20,7 @@ export function MessageInput() {
     setInputText(event.target.value);
   };
 
-  const checkSendUserMessage = () => {
+  const onSendUserMessage = () => {
     const params = { message: "" } as any;
     params.message = inputText;
     params.translationTargetLanguages = chatTranslationLanguages.map(
@@ -52,7 +52,7 @@ export function MessageInput() {
         />
         <button
           className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2"
-          onClick={checkSendUserMessage}
+          onClick={onSendUserMessage}
         >
           Send
         </button>
