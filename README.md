@@ -32,4 +32,6 @@ npm run dev
 ```
 
 For more information check this article : 
+https://belcaid.medium.com/unlocking-multilingual-conversations-a-guide-to-translating-sendbird-chat-messages-cffd648d8372
+
 
